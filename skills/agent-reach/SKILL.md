@@ -1,34 +1,51 @@
 ---
 name: agent-reach
-description: 搜B站/YouTube字幕/语义搜索/RSS/网页读取时用。调bili/yt-dlp。
+description: Use when searching or extracting multimedia content including Bilibili/YouTube video subtitles, RSS feeds, and clean web text.
+version: 1.0.0
+author: shali10
+license: MIT
+platforms: [linux, macos, windows]
+metadata:
+  tags: [multimedia, youtube, bilibili, rss, search, scraping]
+  related_skills: [multi-platform-distribution, markdown-to-html-report]
 ---
 
-# Agent Reach 使用
+# Agent Reach — Multimedia & Clean Content Extraction
 
-## 触发场景
-- 用户说"搜一下B站 xxx" / "B站这个视频讲了什么" → 用 `bili`
-- 用户说"这个 YouTube 视频讲了什么/字幕" → 用 `yt-dlp`
-- 用户说"语义搜索 xxx" / "全网搜 xxx" → Exa（经 mcporter 配置）
-- 用户说"读取/看这个网页" → Jina Reader：`curl https://r.jina.ai/URL`
-- 用户说"订阅/拉取 RSS" → feedparser 或 `curl` 直接抓 RSS/Atom
+## Overview
 
-## 工具位置
-- `bili`（bilibili-cli）：`/root/.local/bin/bili`，如 `bili search "query"`、`bili video <id>`
-- `yt-dlp`：`/opt/agent-reach-venv/bin/yt-dlp`（字幕：`yt-dlp --write-auto-subs --skip-download`）
-- `twitter`（twitter-cli）：`/root/.local/bin/twitter`（已配 X cookie：secrets/twitter_cookies.txt + bashrc env + wrapper `twx`，直接可用）
-  - 读 X 长文：`twx article <tweet_id> -m -o out.md`（-m markdown，-o 存文件）
-  - 验证登录：`twx whoami`（当前账号 @fhjjkn5）
-  - cookie 明文仅在 secrets 文件（600），聊天/日志不回显
-- `gh`：`/usr/local/bin/gh`（需 `gh auth login` 后可用）
-- agent-reach CLI：`/opt/agent-reach-venv/bin/agent-reach`（doctor 体检 / configure 配置）
-- 官方 skill 文档：`/root/.agents/skills/agent-reach/`（SKILL.md + references/）
+Agent Reach empowers AI Agents to break through plain HTML web boundaries, enabling direct extraction and synthesis of multimedia content including **YouTube subtitles, Bilibili video transcripts, RSS subscription feeds, and clutter-free web markdown**.
 
-## 环境
-- venv：`/opt/agent-reach-venv`（Python 3.11 独立环境，不污染系统）
-- 配置目录：`~/.agent-reach/`（config.json、tokens）
-- 状态检查：`/opt/agent-reach-venv/bin/agent-reach doctor`
+## When to Use & When NOT to Use
 
-## 注意
-- V2EX 官方 API/RSS 被 Cloudflare 403 拦截，需要走 RSSHub 公共实例（如 rsshub.rssforever.com）
-- Twitter 需要用户提供登录 Cookie 才能用
-- 平台对服务器 IP 有风控，失败时先 `agent-reach doctor` 看哪个渠道挂
+### When to Use
+- Extracting subtitles/transcripts from YouTube or Bilibili videos for summarization.
+- Querying RSS/Atom feeds for continuous tracking of newsletters, blogs, and podcasts.
+- Extracting clean, ad-free Markdown from web pages via reader APIs.
+- Cross-platform technical topic research across video and text sources.
+
+### When NOT to Use
+- Simple static web downloads where standard `curl` or `requests` is sufficient.
+- Large video/audio binary file processing (use `ffmpeg` or `media_info` instead).
+- Platforms requiring active browser UI automation (use CDP browser tools instead).
+
+## Core Workflow & Tool Commands
+
+| Target Source | Tool / Command | Output Format | Key Flags |
+|---|---|---|---|
+| **YouTube Subtitles** | `yt-dlp --write-auto-subs --sub-lang "zh-Hans,en" --skip-download <URL>` | VTT / SRT Subtitles | `--skip-download` (No heavy video) |
+| **Bilibili Transcripts** | `bili video <BV_ID> --subtitles` | JSON / Plain Text | Extracts native AI/CC subtitles |
+| **Clean Web Text** | `curl -s https://r.jina.ai/<URL>` | Clean Markdown | Strips ads, navbars, and boilerplate |
+| **RSS / Atom Feeds** | `python3 -c "import feedparser; ..."` or `curl -s <Feed_URL>` | Structured Feed XML | Parse titles, links, published dates |
+
+## Common Pitfalls
+
+1. **Downloading entire video files unnecessarily**: Always pass `--skip-download` to `yt-dlp` when only transcript/subtitle metadata is needed.
+2. **Cloudflare WAF on RSS feeds**: Direct `curl` to sites like V2EX or forums may return 403 Forbidden; use public RSSHub instances (e.g. `rsshub.app`) as a transparent proxy.
+3. **Missing subtitle tracks**: Some videos only have auto-generated subtitles; specify fallback languages like `--sub-lang "zh-Hans,zh,en,auto"`.
+
+## Verification Checklist
+
+- [ ] `yt-dlp --version` returns version ≥ 2024.01.01.
+- [ ] Subtitle extraction test: `yt-dlp --list-subs <Test_URL>` lists available tracks.
+- [ ] Web reader test: `curl -fsS https://r.jina.ai/https://example.com` returns clean markdown.
