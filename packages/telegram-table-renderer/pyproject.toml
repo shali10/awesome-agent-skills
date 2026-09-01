@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram-table-renderer"
+version = "1.0.0"
+description = "Zero-dependency Markdown table formatter for Telegram with CJK width alignment and mobile graceful degradation"
+readme = "README.md"
+authors = [{ name = "shali10" }]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.8"
