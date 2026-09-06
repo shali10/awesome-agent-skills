@@ -39,6 +39,7 @@
 | 📊 **数据与大文件** | [**`large-file-data-analysis`**](skills/large-file-data-analysis/) | 基于 `openpyxl read_only` 流式解析 10 万行大 Excel / Word / PDF，防止上下文爆炸 | 大数据集分析 / 财报审计 |
 | ✍️ **文风与去AI味** | [**`human-voice-writing`**](skills/human-voice-writing/)<br>[**`humanizer`**](skills/humanizer/) | 彻底剔除机器套话与客服腔，输出自然、干练、有真实技术人温度的内容 | 技术博客 / 教程 / 文案 |
 | 🌐 **内容全网分发** | [**`multi-platform-distribution`**](skills/multi-platform-distribution/) | 一键将标准 Markdown 适配转换为 Telegram、知乎、微信公众号、Twitter/X、QQ 专属格式 | 多平台内容分发 / 自媒体 |
+| 🚀 **社交媒体发布** | [**BulkPublish Social Media Content Skills**](https://github.com/azeemkafridi/bulkpublish-api/tree/main/skills/social-media-content-skills) | 审核后将内容适配、排期并通过 BulkPublish API / MCP 发布到支持的社交渠道 | 审核优先的多平台发布 |
 | 🧠 **记忆与系统架构**| [**`agent-system-design`**](skills/agent-system-design/)<br>[**`tiered-memory`**](skills/tiered-memory/) | 业内前沿的四层分层记忆架构设计（核心注入 + 详细笔记 + 历史检索 + 语义缓存） | Agent 系统设计 / 记忆治理 |
 | ☁️ **边缘云与网络** | [**`cloudflare-fullstack-ops`**](skills/cloudflare-fullstack-ops/)<br>[**`cloudflare-worker-api-proxy`**](skills/cloudflare-worker-api-proxy/) | CF Pages/Workers/D1/R2/KV 全栈运维 + 零成本自建 OpenAI-compatible 代理 | Serverless / API 中转 |
 | 💻 **Linux 基础设施**| [**`vps-bootstrap`**](skills/vps-bootstrap/) | 新 Linux VPS 一键硬件巡检、三网回程测试、BBR+FQ 加速与 UFW/Fail2ban 安全基线加固 | 服务器开箱 / 运维初始化 |
